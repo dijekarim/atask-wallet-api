@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'sign_in', to: 'users#sign_in'
       get 'profile', to: 'users#me'
+      get 'transactions', to: 'transactions#all'
+      post 'deposit', to: 'transactions#deposit'
+      post 'withdraw', to: 'transactions#withdraw'
+      post 'transfer', to: 'transactions#transfer'
     end
   end
 end

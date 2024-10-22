@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authorized, only: :me
+  before_action :authorized_user, only: :me
   def sign_in
     user = User.find_by(username: params[:username])
 
@@ -29,13 +29,18 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def me
-    render json: { status: 'success', data: @user.as_json(
-      only: [
-        :id, 
-        :username, 
-        :name, 
-        :type
-      ]
-    ) }, status: :ok
+    balance = @user.wallets.sum(:amount)
+    render json: { 
+      status: 'success', 
+      data: @user.as_json(
+        only: [
+          :id, 
+          :username, 
+          :name, 
+          :type
+        ],
+        methods: [:balance]
+      ),
+    }, status: :ok
   end
 end

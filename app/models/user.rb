@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :username, uniqueness: true
   has_many :wallets
-  has_many :debits
   has_many :credits
+  has_many :debits
 
   def balance
     wallets.sum(:amount)

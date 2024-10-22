@@ -27,10 +27,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_152436) do
   create_table "wallets", force: :cascade do |t|
     t.integer "amount"
     t.bigint "user_id"
+    t.bigint "source_id"
+    t.bigint "target_id"
     t.string "type"
     t.string "notes"
+    t.string "transaction_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["source_id"], name: "index_wallets_on_source_id"
+    t.index ["target_id"], name: "index_wallets_on_target_id"
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 end

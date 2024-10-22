@@ -1,5 +1,6 @@
 class Wallet < ApplicationRecord
-  belongs_to :user
+  belongs_to :source, class_name: 'User', optional: true
+  belongs_to :target, class_name: 'User', optional: true
 
   def as_json options={}
     {
@@ -7,11 +8,19 @@ class Wallet < ApplicationRecord
       type: type,
       amount: amount,
       notes: notes,
-      user: {
-        id: user_id,
-        username: user.username,
-        name: user.name,
-      }
+      user_id: user_id,
+      source: {
+        id: source_id,
+        username: source.username,
+        name: source.name,
+      },
+      target: (target_id ? {
+        id: target_id,
+        username: target.username,
+        name: target.name,
+      } : nil),
+      transaction_type: transaction_type,
+      created_at: created_at
     }
   end
 end

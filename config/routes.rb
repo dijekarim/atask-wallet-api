@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post 'deposit', to: 'transactions#deposit'
       post 'withdraw', to: 'transactions#withdraw'
       post 'transfer', to: 'transactions#transfer'
+      get 'stocks/price-all', to: 'stocks#price_all'
     end
   end
 end
